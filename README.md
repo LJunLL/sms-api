@@ -22,7 +22,7 @@ A RESTful API built with Java Spring Boot for managing students, courses, subjec
 
 1. Clone the repository
 ```bash
-   git clone https://github.com/yourusername/sms-api.git
+   git clone https://github.com/LJunLL/sms-api.git
    cd sms-api
 ```
 
