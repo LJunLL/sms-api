@@ -31,15 +31,14 @@ INSERT INTO students (dni, name, last_name, email, phone, birthday, enrollment_d
 ('45678901D', 'Ana', 'Sanchez', 'ana.sanchez@student.com', '644444444', '2002-07-30', '2023-09-01'),
 ('56789012E', 'Luis', 'Fernandez', 'luis.fernandez@student.com', '655555555', '2000-01-12', '2024-09-01');
 
--- Users
+-- Users (admin is created by DataSeeder on startup)
 INSERT INTO users (username, email, password) VALUES
-('admin', 'admin@school.com', '$2a$10$5PKeoFmpbe8fBv9v9HS4deXM.By05SN8GjfCHWUSUxD9mFZey.hXm'),
 ('user', 'user@school.com', '$2a$10$5PKeoFmpbe8fBv9v9HS4deXM.By05SN8GjfCHWUSUxD9mFZey.hXm');
 
 -- Users_Roles
-INSERT INTO users_roles (user_id, role_id) VALUES
-(1, 2),
-(2, 1);
+INSERT INTO users_roles (user_id, role_id)
+SELECT u.id, r.id FROM users u, roles r
+WHERE u.username = 'user' AND r.name = 'ROLE_USER';
 
 -- Enrollments
 INSERT INTO enrollments (student_id, subject_id, enrollment_date, status) VALUES
