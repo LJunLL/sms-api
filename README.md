@@ -11,33 +11,63 @@ A RESTful API built with Java Spring Boot for managing students, courses, subjec
 - PostgreSQL (production) / H2 (development)
 - MapStruct
 - Lombok
+- Springdoc OpenAPI (Swagger UI)
 
 ## Getting Started
 
 ### Prerequisites
+
 - Java 21
 - Maven 3.8+
 
 ### Installation
 
 1. Clone the repository
+
 ```bash
    git clone https://github.com/LJunLL/sms-api.git
    cd sms-api
 ```
 
-2. Configure environment variables for production
+2. Run in development mode (default profile, H2 in-memory database with sample data)
+
+```bash
+   mvn spring-boot:run
 ```
+
+3. For production, set the following environment variables
+
+```
+   SPRING_PROFILES_ACTIVE=prod
    DB_URL=your_neon_postgresql_url
    DB_USERNAME=your_username
    DB_PASSWORD=your_password
    JWT_SECRET=your_secret_key
+   ADMIN_USERNAME=your_admin_username
+   ADMIN_PASSWORD=your_strong_admin_password
+   ADMIN_EMAIL=your_admin_email
 ```
 
-3. Run in development mode (H2 in-memory database)
-```bash
-   mvn spring-boot:run
-```
+## Default Users
+
+On startup, an ADMIN user is created automatically if it doesn't exist, using the `ADMIN_USERNAME`, `ADMIN_PASSWORD` and `ADMIN_EMAIL` environment variables.
+
+In development mode, the following users are available:
+
+| Username | Password | Role |
+|----------|----------|------|
+| admin | admin123 | ADMIN |
+| user | password123 | USER |
+
+Public registration (`/api/v1/auth/register`) always creates users with the USER role.
+
+## API Documentation
+
+Interactive API documentation is available via Swagger UI once the app is running:
+
+http://localhost:8080/swagger-ui.html
+
+To test protected endpoints, log in via `/api/v1/auth/login`, copy the token and paste it in the **Authorize** button.
 
 ## API Endpoints
 
@@ -98,6 +128,7 @@ A RESTful API built with Java Spring Boot for managing students, courses, subjec
 ## Authentication
 
 This API uses JWT Bearer token authentication. Include the token in the Authorization header:
+
 ```
 Authorization: Bearer <your_token>
 ```
