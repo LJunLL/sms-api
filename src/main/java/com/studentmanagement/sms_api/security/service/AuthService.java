@@ -14,11 +14,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -62,6 +64,10 @@ public class AuthService {
 
         String token = jwtGenerator.generateJwtToken(authentication);
 
-        return new AuthResponseDto(token);
+        String name = authentication.getName();
+        List<String> authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority).toList();
+
+        return new AuthResponseDto(token, name,  authorities);
     }
 }
