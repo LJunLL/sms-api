@@ -3,9 +3,11 @@ package com.studentmanagement.sms_api.service.impl;
 import com.studentmanagement.sms_api.dto.request.StudentRequestDto;
 import com.studentmanagement.sms_api.dto.response.StudentResponseDto;
 import com.studentmanagement.sms_api.exception.DuplicateResourceException;
+import com.studentmanagement.sms_api.exception.InvalidOperationException;
 import com.studentmanagement.sms_api.exception.ResourceNotFoundException;
 import com.studentmanagement.sms_api.mapper.StudentMapper;
 import com.studentmanagement.sms_api.model.Student;
+import com.studentmanagement.sms_api.repository.EnrollmentRepository;
 import com.studentmanagement.sms_api.repository.StudentRepository;
 import com.studentmanagement.sms_api.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
     private final StudentMapper studentMapper;
+    private final EnrollmentRepository enrollmentRepository;
 
     @Override
     public StudentResponseDto findById(Long id) {
@@ -67,6 +70,9 @@ public class StudentServiceImpl implements StudentService {
     public void delete(Long id) {
         if(!studentRepository.existsById(id)){
             throw new ResourceNotFoundException("Student not found with id: " + id);
+        }
+        if (enrollmentRepository.existsByStudentId(id)) {
+            throw new InvalidOperationException("Cannot delete a student with enrollments");
         }
         studentRepository.deleteById(id);
     }
