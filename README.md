@@ -138,6 +138,7 @@ Authorization: Bearer <your_token>
 - A student cannot be enrolled twice in the same subject
 - Updating a grade automatically changes enrollment status to APPROVED (≥5) or SUSPENDED (<5)
 - Enrollments with an assigned grade cannot be deleted
+- A student with enrollments cannot be deleted
 
 ## License
 
