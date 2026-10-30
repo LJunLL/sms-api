@@ -196,6 +196,9 @@ All errors share the same format:
 - Updating a grade automatically changes enrollment status to APPROVED (≥5) or SUSPENDED (<5)
 - Enrollments with an assigned grade cannot be deleted
 - A student with enrollments cannot be deleted
+- A teacher assigned to subjects cannot be deleted
+- A course with subjects cannot be deleted
+- A subject with enrollments cannot be deleted
 
 ## License
 
