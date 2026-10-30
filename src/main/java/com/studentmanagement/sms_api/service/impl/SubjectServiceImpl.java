@@ -3,12 +3,14 @@ package com.studentmanagement.sms_api.service.impl;
 import com.studentmanagement.sms_api.dto.request.SubjectRequestDto;
 import com.studentmanagement.sms_api.dto.response.SubjectResponseDto;
 import com.studentmanagement.sms_api.exception.DuplicateResourceException;
+import com.studentmanagement.sms_api.exception.InvalidOperationException;
 import com.studentmanagement.sms_api.exception.ResourceNotFoundException;
 import com.studentmanagement.sms_api.mapper.SubjectMapper;
 import com.studentmanagement.sms_api.model.Course;
 import com.studentmanagement.sms_api.model.Subject;
 import com.studentmanagement.sms_api.model.Teacher;
 import com.studentmanagement.sms_api.repository.CourseRepository;
+import com.studentmanagement.sms_api.repository.EnrollmentRepository;
 import com.studentmanagement.sms_api.repository.SubjectRepository;
 import com.studentmanagement.sms_api.repository.TeacherRepository;
 import com.studentmanagement.sms_api.service.SubjectService;
@@ -26,6 +28,7 @@ public class SubjectServiceImpl implements SubjectService {
     private final SubjectRepository subjectRepository;
     private final TeacherRepository teacherRepository;
     private final CourseRepository courseRepository;
+    private final EnrollmentRepository enrollmentRepository;
 
     private final SubjectMapper subjectMapper;
 
@@ -104,7 +107,11 @@ public class SubjectServiceImpl implements SubjectService {
     @Transactional
     public void delete(Long id) {
         if(!subjectRepository.existsById(id)){
-            throw new ResourceNotFoundException("Subject not found with id " + id);
+            throw new ResourceNotFoundException("Subject not found with id: " + id);
+        }
+
+        if(enrollmentRepository.existsBySubjectId(id)){
+            throw new InvalidOperationException("Cannot delete a subject with enrollments");
         }
         subjectRepository.deleteById(id);
     }

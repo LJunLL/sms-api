@@ -3,10 +3,12 @@ package com.studentmanagement.sms_api.service.impl;
 import com.studentmanagement.sms_api.dto.request.CourseRequestDto;
 import com.studentmanagement.sms_api.dto.response.CourseResponseDto;
 import com.studentmanagement.sms_api.exception.DuplicateResourceException;
+import com.studentmanagement.sms_api.exception.InvalidOperationException;
 import com.studentmanagement.sms_api.exception.ResourceNotFoundException;
 import com.studentmanagement.sms_api.mapper.CourseMapper;
 import com.studentmanagement.sms_api.model.Course;
 import com.studentmanagement.sms_api.repository.CourseRepository;
+import com.studentmanagement.sms_api.repository.SubjectRepository;
 import com.studentmanagement.sms_api.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
+    private final SubjectRepository subjectRepository;
 
     @Override
     public CourseResponseDto findById(Long id) {
@@ -64,7 +67,10 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public void delete(Long id) {
         if(!courseRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Course not found with  id: " + id);
+            throw new ResourceNotFoundException("Course not found with id: " + id);
+        }
+        if(subjectRepository.existsByCourseId(id)) {
+            throw new InvalidOperationException("Cannot delete a course with subjects");
         }
         courseRepository.deleteById(id);
     }
