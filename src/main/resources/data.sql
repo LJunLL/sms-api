@@ -15,7 +15,7 @@ INSERT INTO courses (name, hours, course_level, description) VALUES
 ('DAM 2', 2000, 2, 'Second year of Multiplatform Application Development');
 
 -- Subjects
-INSERT INTO subjects (name, desc, hours, teacher_id, course_id) VALUES
+INSERT INTO subjects (name, description, hours, teacher_id, course_id) VALUES
 ('Programming', 'Introduction to programming with Java', 8, 2, 1),
 ('Databases', 'Relational databases and SQL', 6, 3, 1),
 ('Operating Systems', 'Linux and Windows administration', 5, 4, 1),

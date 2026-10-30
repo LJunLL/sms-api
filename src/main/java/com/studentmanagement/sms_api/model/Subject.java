@@ -14,7 +14,7 @@ public class Subject {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "description")
     private String desc;
 
     @Column(nullable = false)
