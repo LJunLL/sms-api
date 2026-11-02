@@ -51,6 +51,12 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
 
     @Override
+    public List<EnrollmentResponseDto> findAll() {
+       List<Enrollment> enrollments = enrollmentRepository.findAll();
+       return enrollments.stream().map(enrollmentMapper :: toResponseDto).toList();
+    }
+
+    @Override
     @Transactional
     public EnrollmentResponseDto enroll(EnrollmentRequestDto dto) {
         Student student = studentRepository.findById(dto.getStudentId()).orElseThrow(

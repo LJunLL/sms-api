@@ -9,6 +9,7 @@ public interface EnrollmentService {
     EnrollmentResponseDto findById(Long id);
     List<EnrollmentResponseDto> findByStudentId(Long studentId);
     List<EnrollmentResponseDto> findBySubjectId(Long subjectId);
+    List<EnrollmentResponseDto> findAll();
     EnrollmentResponseDto enroll(EnrollmentRequestDto dto);
     EnrollmentResponseDto updateGrade(Long id, Double grade);
     void delete(Long id);

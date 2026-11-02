@@ -19,6 +19,12 @@ public class EnrollmentController {
 
     private final EnrollmentService enrollmentService;
 
+
+    @GetMapping
+    public ResponseEntity<List<EnrollmentResponseDto>> getAllEnrollments() {
+        return ResponseEntity.ok(enrollmentService.findAll());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<EnrollmentResponseDto>getEnrollment(@PathVariable Long id){
         return ResponseEntity.ok(enrollmentService.findById(id));
