@@ -200,6 +200,19 @@ All errors share the same format:
 - A course with subjects cannot be deleted
 - A subject with enrollments cannot be deleted
 
+## Testing
+
+Unit tests cover the business rules in the service layer, using JUnit 5 and Mockito. Repositories and mappers are mocked, so the tests run without a database or a Spring context.
+
+```bash
+mvn test
+```
+
+Covered rules:
+
+- Enrollments: duplicate enrollment, grade range validation, automatic status from the grade (including the 5.0 boundary) and deletion of graded enrollments
+- Deletion of students, teachers, courses and subjects with related records
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
