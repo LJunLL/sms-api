@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -70,6 +71,11 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         if(enrollmentRepository.existsByStudentIdAndSubjectId(dto.getStudentId(), dto.getSubjectId())) {
             throw new DuplicateResourceException("Student already enrolled in this subject");
         }
+
+        if (dto.getEnrollmentDate().isBefore(student.getEnrollmentDate())) {
+            throw new InvalidOperationException("Enrollment date cannot be before the student's enrollment date");
+        }
+
         Enrollment enrollment = enrollmentMapper.toEntity(dto);
         enrollment.setStudent(student);
         enrollment.setSubject(subject);

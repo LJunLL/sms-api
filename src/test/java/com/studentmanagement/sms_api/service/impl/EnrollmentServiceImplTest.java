@@ -20,6 +20,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -78,8 +79,10 @@ class EnrollmentServiceImplTest {
         EnrollmentRequestDto dto = new EnrollmentRequestDto();
         dto.setStudentId(1L);
         dto.setSubjectId(2L);
+        dto.setEnrollmentDate(LocalDate.of(2026, 11, 3));
 
         Student student = new Student();
+        student.setEnrollmentDate(LocalDate.of(2026, 11, 1));
         Subject subject = new Subject();
         Enrollment enrollment = new Enrollment();
 
@@ -181,5 +184,24 @@ class EnrollmentServiceImplTest {
 
         // Assert
         verify(enrollmentRepository).deleteById(1L);
+    }
+
+    @Test
+    void enroll_throwsInvalidOperationException_whenDateIsBeforeStudentEnrollmentDate() {
+        // Arrange
+        EnrollmentRequestDto dto = new EnrollmentRequestDto();
+        dto.setStudentId(1L);
+        dto.setSubjectId(2L);
+        dto.setEnrollmentDate(LocalDate.of(2026, 11, 1));
+
+        Student student = new Student();
+        student.setEnrollmentDate(LocalDate.of(2026, 11, 3));
+
+        when(studentRepository.findById(1L)).thenReturn(Optional.of(student));
+        when(subjectRepository.findById(2L)).thenReturn(Optional.of(new Subject()));
+
+        // Act & Assert
+        assertThrows(InvalidOperationException.class, () -> enrollmentService.enroll(dto));
+        verify(enrollmentRepository, never()).save(any());
     }
 }
