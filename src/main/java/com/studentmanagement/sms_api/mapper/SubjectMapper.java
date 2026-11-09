@@ -9,6 +9,8 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface SubjectMapper {
+    @Mapping(source = "teacher.id", target = "teacherId")
+    @Mapping(source = "course.id", target = "courseId")
     @Mapping(source = "teacher.name", target = "teacherName")
     @Mapping(source = "course.name", target = "courseName")
     SubjectResponseDto toResponseDto(Subject subject);
