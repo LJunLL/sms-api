@@ -14,8 +14,8 @@ public class Course {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private Long hours;
+    @Column(name = "hours" ,nullable = false)
+    private Long durationHours;
 
     @Column(name = "course_level", nullable = false)
     private Integer level;

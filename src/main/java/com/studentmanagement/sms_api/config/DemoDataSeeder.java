@@ -130,7 +130,7 @@ public class DemoDataSeeder implements CommandLineRunner {
     private Course createCourse(String name, Long hours, Integer level, String description) {
         Course course = new Course();
         course.setName(name);
-        course.setHours(hours);
+        course.setDurationHours(hours);
         course.setLevel(level);
         course.setDescription(description);
         return courseRepository.save(course);
