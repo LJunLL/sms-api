@@ -155,6 +155,7 @@ On startup, an ADMIN user is created from `ADMIN_USERNAME`, `ADMIN_PASSWORD` and
 ### Enrollments
 | Method | Endpoint | Description | Auth |
 |--------|----------|-------------|------|
+| GET | /api/v1/enrollments | Get all enrollments | USER, ADMIN |
 | GET | /api/v1/enrollments/{id} | Get enrollment by id | USER, ADMIN |
 | GET | /api/v1/enrollments/students/{id} | Get enrollments by student | USER, ADMIN |
 | GET | /api/v1/enrollments/subjects/{id} | Get enrollments by subject | USER, ADMIN |
@@ -199,18 +200,17 @@ All errors share the same format:
 - A teacher assigned to subjects cannot be deleted
 - A course with subjects cannot be deleted
 - A subject with enrollments cannot be deleted
+- An enrollment date cannot be before the student's enrollment date
 
 ## Testing
 
 Unit tests cover the business rules in the service layer, using JUnit 5 and Mockito. Repositories and mappers are mocked, so the tests run without a database or a Spring context.
-
 ```bash
 mvn test
 ```
 
 Covered rules:
-
-- Enrollments: duplicate enrollment, grade range validation, automatic status from the grade (including the 5.0 boundary) and deletion of graded enrollments
+- Enrollments: duplicate enrollment, enrollment date before the student's enrollment date, grade range validation, automatic status from the grade (including the 5.0 boundary) and deletion of graded enrollments
 - Deletion of students, teachers, courses and subjects with related records
 
 ## License
