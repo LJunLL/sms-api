@@ -139,8 +139,8 @@ public class DemoDataSeeder implements CommandLineRunner {
     private Subject createSubject(String name, String desc, Integer hours, Teacher teacher, Course course) {
         Subject subject = new Subject();
         subject.setName(name);
-        subject.setDesc(desc);
-        subject.setHours(hours);
+        subject.setDescription(desc);
+        subject.setWeeklyHours(hours);
         subject.setTeacher(teacher);
         subject.setCourse(course);
         return subjectRepository.save(subject);
