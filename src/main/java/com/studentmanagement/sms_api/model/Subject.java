@@ -15,10 +15,10 @@ public class Subject {
     private String name;
 
     @Column(nullable = false, name = "description")
-    private String desc;
+    private String description;
 
-    @Column(nullable = false)
-    private Integer hours;
+    @Column(nullable = false, name = "hours")
+    private Integer weeklyHours;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
