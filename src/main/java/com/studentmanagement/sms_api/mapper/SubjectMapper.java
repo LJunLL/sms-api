@@ -11,7 +11,7 @@ import org.mapstruct.MappingTarget;
 public interface SubjectMapper {
     @Mapping(source = "teacher.id", target = "teacherId")
     @Mapping(source = "course.id", target = "courseId")
-    @Mapping(source = "teacher.name", target = "teacherName")
+    @Mapping(target = "teacherName", expression = "java(subject.getTeacher().getName() + \" \" + subject.getTeacher().getLastName())")
     @Mapping(source = "course.name", target = "courseName")
     SubjectResponseDto toResponseDto(Subject subject);
 

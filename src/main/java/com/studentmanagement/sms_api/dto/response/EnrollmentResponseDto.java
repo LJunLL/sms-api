@@ -9,6 +9,7 @@ import lombok.Data;
 public class EnrollmentResponseDto {
     private Long id;
     private String studentName;
+    private String studentLastName;
     private String subjectName;
     private Double grade;
     private LocalDate enrollmentDate;
