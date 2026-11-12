@@ -41,11 +41,11 @@ SELECT u.id, r.id FROM users u, roles r
 WHERE u.username = 'user' AND r.name = 'ROLE_USER';
 
 -- Enrollments
-INSERT INTO enrollments (student_id, subject_id, enrollment_date, status) VALUES
-(1, 1, '2023-09-01', 'ENROLLED'),
-(1, 2, '2023-09-01', 'ENROLLED'),
-(2, 1, '2023-09-01', 'APPROVED'),
-(2, 2, '2023-09-01', 'SUSPENDED'),
-(3, 1, '2023-09-01', 'ENROLLED'),
-(4, 3, '2023-09-01', 'ENROLLED'),
-(5, 4, '2024-09-01', 'ENROLLED');
+INSERT INTO enrollments (student_id, subject_id, enrollment_date, grade, status) VALUES
+(1, 1, '2023-09-01', NULL, 'ENROLLED'),
+(1, 2, '2023-09-01', 6.0, 'APPROVED'),
+(2, 1, '2023-09-01', 8.0, 'APPROVED'),
+(2, 2, '2023-09-01', 4.0, 'SUSPENDED'),
+(3, 1, '2023-09-01', 10.0, 'APPROVED'),
+(4, 3, '2023-09-01', 3.0, 'SUSPENDED'),
+(5, 4, '2024-09-01', NULL, 'ENROLLED');
