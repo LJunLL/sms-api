@@ -1,5 +1,7 @@
 # Student Management System API
 
+[![Tests](https://github.com/LJunLL/sms-api/actions/workflows/tests.yml/badge.svg)](https://github.com/LJunLL/sms-api/actions/workflows/tests.yml)
+
 A RESTful API built with Java and Spring Boot for managing students, courses, subjects, teachers and enrollments in an educational institution.
 
 **Live demo:** [ljunll-sms.netlify.app](https://ljunll-sms.netlify.app) · **API docs:** [Swagger UI](https://ljunll-sms-api.onrender.com/swagger-ui.html) · **Frontend repo:** [sms-frontend](https://github.com/LJunLL/sms-frontend)
